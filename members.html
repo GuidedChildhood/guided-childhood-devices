@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guided Childhood — Device Setup Pathway</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9920A; --gold-lt:#FBF5E6; --gold-mid:rgba(201,146,10,.18);
+  --ink:#111; --ink-2:#3C3C3C; --ink-3:#888; --ink-4:rgba(17,17,17,.08);
+  --white:#fff; --off:#F9F7F4; --line:rgba(17,17,17,.08);
+  --green:#3C7A5A; --green-lt:#EAF3EE;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+/* screens */
+.screen{display:none;}
+.screen.on{display:block;animation:fade .25s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── INTAKE ── */
+.intake{min-height:100vh;background:var(--white);padding:48px 24px;display:flex;flex-direction:column;justify-content:center;max-width:480px;margin:0 auto;}
+.intake-eyebrow{font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;text-align:center;}
+.intake h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;line-height:1.18;letter-spacing:-.4px;text-align:center;margin-bottom:14px;}
+.intake h1 em{font-style:italic;}
+.intake-sub{font-size:15px;font-weight:300;line-height:1.65;color:var(--ink-3);text-align:center;max-width:320px;margin:0 auto 36px;}
+.q-step{margin-bottom:24px;}
+.q-label{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:10px;}
+.q-input{width:100%;padding:15px 16px;border:1.5px solid var(--line);border-radius:13px;font-family:inherit;font-size:15px;color:var(--ink);background:var(--white);transition:border-color .15s;}
+.q-input:focus{outline:none;border-color:var(--gold);}
+.age-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.age-btn{padding:14px 8px;border:1.5px solid var(--line);border-radius:13px;background:var(--white);cursor:pointer;text-align:center;transition:all .15s;}
+.age-btn:hover{border-color:rgba(201,146,10,.4);}
+.age-btn.sel{border-color:var(--gold);background:var(--gold-lt);}
+.age-btn .a-num{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--ink);}
+.age-btn .a-lbl{font-size:10px;color:var(--ink-3);margin-top:2px;}
+.concern-list{display:flex;flex-direction:column;gap:8px;}
+.concern-btn{padding:14px 16px;border:1.5px solid var(--line);border-radius:13px;background:var(--white);cursor:pointer;font-size:14px;color:var(--ink-2);text-align:left;transition:all .15s;display:flex;align-items:center;gap:10px;}
+.concern-btn:hover{border-color:rgba(201,146,10,.4);}
+.concern-btn.sel{border-color:var(--gold);background:var(--gold-lt);color:var(--ink);}
+.concern-btn .c-check{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.concern-btn.sel .c-check{border-color:var(--gold);background:var(--gold);}
+.concern-btn.sel .c-check::after{content:'✓';color:#fff;font-size:10px;font-weight:700;}
+.intake-btn{width:100%;background:var(--gold);color:#fff;font-size:16px;font-weight:500;padding:17px;border:none;border-radius:14px;cursor:pointer;margin-top:8px;font-family:inherit;}
+.intake-btn:disabled{opacity:.4;cursor:not-allowed;}
+.intake-skip{display:block;text-align:center;margin-top:16px;font-size:13px;color:var(--ink-3);text-decoration:none;background:none;border:none;cursor:pointer;width:100%;font-family:inherit;}
+
+/* ── HEADER (dashboard) ── */
+.app-header{background:var(--white);border-bottom:1px solid var(--line);padding:18px 20px;}
+.app-header-top{display:flex;align-items:center;justify-content:space-between;max-width:520px;margin:0 auto;}
+.brand{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;}
+.brand em{font-style:italic;color:var(--gold);}
+.stage-pill{background:var(--gold-lt);border:1px solid rgba(201,146,10,.25);border-radius:40px;padding:5px 12px;font-size:11px;font-weight:500;color:var(--gold);}
+
+/* ── STAGE BANNER ── */
+.stage-banner{background:var(--off);border-bottom:1px solid var(--line);padding:24px 20px;}
+.stage-banner-inner{max-width:520px;margin:0 auto;}
+.sb-greeting{font-size:13px;color:var(--ink-3);margin-bottom:6px;}
+.sb-greeting strong{color:var(--ink);font-weight:500;}
+.sb-stage-name{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;margin-bottom:8px;}
+.sb-stage-name em{font-style:italic;color:var(--gold);}
+.sb-desc{font-size:14px;font-weight:300;color:var(--ink-2);line-height:1.6;}
+.sb-science{margin-top:14px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-left:3px solid var(--gold);}
+.sb-science-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+.sb-science p{font-size:13px;font-weight:300;color:var(--ink-2);line-height:1.6;}
+
+/* ── SEARCH ── */
+.search-wrap{max-width:520px;margin:0 auto;padding:24px 20px 0;}
+.search-box{position:relative;}
+.search-input{width:100%;padding:15px 16px 15px 46px;border:1.5px solid var(--line);border-radius:14px;font-family:inherit;font-size:15px;background:var(--white);transition:border-color .15s;}
+.search-input:focus{outline:none;border-color:var(--gold);}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:16px;}
+.search-clear{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:var(--off);border:none;width:24px;height:24px;border-radius:50%;cursor:pointer;color:var(--ink-3);font-size:14px;display:none;}
+.search-clear.show{display:flex;align-items:center;justify-content:center;}
+
+/* category chips */
+.cat-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:14px 0 4px;margin-bottom:4px;}
+.cat-row::-webkit-scrollbar{display:none;}
+.cat-chip{flex:0 0 auto;padding:8px 14px;border:1.5px solid var(--line);border-radius:40px;background:var(--white);font-size:12.5px;font-weight:500;color:var(--ink-3);cursor:pointer;white-space:nowrap;transition:all .15s;}
+.cat-chip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+/* ── DEVICE LIST ── */
+.device-section{max-width:520px;margin:0 auto;padding:8px 20px 60px;}
+.results-count{font-size:12px;color:var(--ink-3);margin:14px 0 10px;}
+.no-results{text-align:center;padding:40px 20px;color:var(--ink-3);font-size:14px;}
+.no-results strong{color:var(--ink);display:block;margin-bottom:6px;font-weight:500;}
+
+.device-card{border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:box-shadow .2s,border-color .2s;}
+.device-card.open{box-shadow:0 8px 40px rgba(17,17,17,.08);border-color:rgba(201,146,10,.3);}
+.device-card.locked{opacity:1;}
+.dc-head{display:flex;align-items:center;gap:14px;padding:16px;}
+.dc-emoji{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.dc-meta{flex:1;min-width:0;}
+.dc-name{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.dc-sub{font-size:12px;font-weight:300;color:var(--ink-3);}
+.dc-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.dc-lock{font-size:13px;color:var(--ink-3);}
+.dc-toggle{width:28px;height:28px;border-radius:50%;background:var(--off);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;transition:background .15s;}
+.dc-toggle svg{transition:transform .28s cubic-bezier(.4,0,.2,1);}
+.device-card.open .dc-toggle{background:var(--gold-lt);border-color:rgba(201,146,10,.3);}
+.device-card.open .dc-toggle svg{transform:rotate(180deg);}
+.dc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
+.device-card.open .dc-body{max-height:1400px;}
+.dc-inner{padding:0 16px 20px;border-top:1px solid var(--line);padding-top:16px;}
+
+.dc-why{font-size:14px;font-weight:300;color:var(--ink-2);line-height:1.7;margin-bottom:18px;}
+.age-flag{display:inline-flex;align-items:center;gap:6px;background:var(--green-lt);color:var(--green);font-size:12px;font-weight:500;padding:7px 12px;border-radius:10px;margin-bottom:18px;}
+.steps{list-style:none;margin-bottom:16px;}
+.step{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);}
+.step:last-child{border:none;}
+.s-num{width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--gold);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.s-text{font-size:13.5px;font-weight:300;color:var(--ink-2);line-height:1.65;}
+.s-text strong{color:var(--ink);font-weight:500;}
+.pnote{background:var(--gold-lt);border-radius:12px;padding:14px 16px;font-size:13px;font-weight:300;color:var(--ink-2);line-height:1.6;border-left:2.5px solid var(--gold);}
+.pnote strong{color:var(--gold);font-weight:500;}
+
+/* calendar add */
+.cal-add{display:flex;align-items:center;gap:10px;background:var(--off);border-radius:12px;padding:13px 15px;margin-top:14px;cursor:pointer;border:1px solid var(--line);}
+.cal-icon{width:34px;height:34px;border-radius:9px;background:var(--white);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.cal-text{flex:1;}
+.cal-title{font-size:13px;font-weight:500;color:var(--ink);}
+.cal-sub{font-size:11.5px;font-weight:300;color:var(--ink-3);}
+.cal-arrow{color:var(--gold);font-size:18px;}
+
+/* ── EMAIL LOCK OVERLAY ── */
+.lock-card{border:1px solid rgba(201,146,10,.3);border-radius:16px;margin-bottom:10px;overflow:hidden;background:var(--gold-lt);}
+.lock-inner{padding:24px 20px;text-align:center;}
+.lock-icon{width:48px;height:48px;border-radius:50%;background:var(--white);border:1px solid rgba(201,146,10,.3);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 14px;}
+.lock-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin-bottom:8px;}
+.lock-desc{font-size:13.5px;font-weight:300;color:var(--ink-2);line-height:1.6;margin-bottom:18px;max-width:300px;margin-left:auto;margin-right:auto;}
+.lock-form{display:flex;flex-direction:column;gap:10px;max-width:320px;margin:0 auto;}
+.lock-input{width:100%;padding:15px 16px;border:1.5px solid var(--line);border-radius:13px;font-family:inherit;font-size:15px;background:var(--white);text-align:center;}
+.lock-input:focus{outline:none;border-color:var(--gold);}
+.lock-btn{background:var(--gold);color:#fff;font-size:15px;font-weight:500;padding:16px;border:none;border-radius:13px;cursor:pointer;font-family:inherit;}
+.lock-fine{font-size:11px;color:var(--ink-3);margin-top:12px;line-height:1.5;}
+.lock-count{display:inline-flex;align-items:center;gap:6px;background:var(--white);border:1px solid rgba(201,146,10,.3);border-radius:40px;padding:5px 12px;font-size:11px;font-weight:500;color:var(--gold);margin-bottom:14px;}
+
+/* ── FOUNDER / FULL OS ── */
+.os-section{max-width:520px;margin:0 auto;padding:0 20px 60px;}
+.os-divider{height:1px;background:var(--line);margin:0 0 40px;}
+.os-hero{background:var(--off);border:1px solid var(--line);border-radius:24px;padding:36px 24px;text-align:center;position:relative;overflow:hidden;margin-bottom:20px;}
+.os-hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:280px;height:280px;border-radius:50%;background:var(--gold);opacity:.05;}
+.os-tag{display:inline-block;background:var(--gold-lt);border:1px solid rgba(201,146,10,.3);border-radius:40px;padding:6px 16px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.os-hero h2{font-family:'Playfair Display',serif;font-size:30px;font-weight:400;line-height:1.18;letter-spacing:-.4px;margin-bottom:10px;}
+.os-hero h2 em{font-style:italic;color:var(--gold);}
+.os-hero p{font-size:15px;font-weight:300;color:var(--ink-3);line-height:1.7;max-width:320px;margin:0 auto 26px;}
+.os-feats{list-style:none;text-align:left;margin-bottom:26px;}
+.os-feats li{display:flex;gap:14px;align-items:flex-start;font-size:14px;font-weight:300;color:var(--ink-2);padding:12px 0;border-bottom:1px solid var(--line);line-height:1.5;}
+.os-feats li:last-child{border:none;}
+.os-feats li::before{content:'';display:block;flex-shrink:0;margin-top:3px;width:18px;height:18px;border-radius:50%;background:var(--gold-lt);border:1.5px solid var(--gold);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'%3E%3Cpath d='M1 5l3.5 3.5L11 1' stroke='%23C9920A' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-size:10px;background-repeat:no-repeat;background-position:center;}
+.os-price{margin-bottom:8px;}
+.os-price-was{font-size:13px;color:var(--ink-3);text-decoration:line-through;}
+.os-price-now{font-family:'Playfair Display',serif;font-size:36px;font-weight:400;color:var(--gold);}
+.os-price-now span{font-size:16px;color:var(--ink-3);}
+.os-btn{display:block;background:var(--gold);color:#fff;font-size:16px;font-weight:500;padding:18px;border-radius:14px;text-decoration:none;margin-bottom:12px;margin-top:18px;}
+.os-fine{font-size:12px;color:var(--ink-3);text-decoration:none;display:block;}
+
+/* compare */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+.cc{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--white);}
+.cc.feat{border-color:rgba(201,146,10,.35);background:var(--gold-lt);}
+.cc-top{padding:14px 16px;border-bottom:1px solid var(--line);}
+.cc.feat .cc-top{border-color:rgba(201,146,10,.2);}
+.cc-tag{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px;}
+.cc.feat .cc-tag{color:var(--gold);}
+.cc-name{font-size:14px;font-weight:500;color:var(--ink);}
+.cc-body{padding:6px 0;}
+.cc-row{font-size:12.5px;font-weight:300;color:var(--ink-3);padding:8px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;}
+.cc-row:last-child{border:none;}
+.cc.feat .cc-row{color:var(--ink-2);border-color:rgba(201,146,10,.15);}
+.cc-row::before{content:'·';color:var(--ink-4);}
+.cc.feat .cc-row::before{content:'✓';color:var(--gold);font-size:11px;font-weight:600;}
+
+.tmn{border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:14px;}
+.tmn-stars{color:var(--gold);font-size:14px;letter-spacing:2px;margin-bottom:10px;}
+.tmn-q{font-size:15px;font-style:italic;font-weight:300;color:var(--ink-2);line-height:1.7;margin-bottom:12px;}
+.tmn-who{font-size:12.5px;font-weight:500;color:var(--ink-3);}
+
+footer{background:var(--off);border-top:1px solid var(--line);padding:32px 24px;text-align:center;}
+footer p{font-size:12px;font-weight:300;color:var(--ink-3);line-height:1.9;}
+footer a{color:var(--gold);text-decoration:none;}
+
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ink);color:#fff;padding:14px 20px;border-radius:12px;font-size:13.5px;font-weight:400;box-shadow:0 8px 30px rgba(0,0,0,.2);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:1000;max-width:90%;text-align:center;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ SCREEN 1: INTAKE ═══════════ -->
+<div id="screen-intake" class="screen on">
+  <div class="intake">
+    <div class="intake-eyebrow">Device Setup Pathway</div>
+    <h1>Let's build the right setup for <em>your</em> child.</h1>
+    <p class="intake-sub">Two quick questions. The guidance, age limits, and timing all adapt to your answers — grounded in the research.</p>
+
+    <div class="q-step">
+      <div class="q-label">First, what's your child's name?</div>
+      <input type="text" id="childName" class="q-input" placeholder="e.g. Alma" autocomplete="off">
+    </div>
+
+    <div class="q-step">
+      <div class="q-label">How old are they?</div>
+      <div class="age-grid" id="ageGrid"></div>
+    </div>
+
+    <div class="q-step" id="concernStep" style="display:none;">
+      <div class="q-label">What's on your mind most right now? <span style="color:var(--ink-3);font-weight:300;">(optional)</span></div>
+      <div class="concern-list" id="concernList"></div>
+    </div>
+
+    <button class="intake-btn" id="intakeContinue" disabled>Continue →</button>
+    <button class="intake-skip" onclick="skipIntake()">Skip — just show me the guides</button>
+  </div>
+</div>
+
+<!-- ═══════════ SCREEN 2: DASHBOARD ═══════════ -->
+<div id="screen-dash" class="screen">
+
+  <div class="app-header">
+    <div class="app-header-top">
+      <div class="brand">Guided <em>Childhood</em></div>
+      <div class="stage-pill" id="stagePill" style="background:#EAF3EE;border-color:rgba(60,122,90,.3);color:#3C7A5A;">✓ Member Access</div>
+    </div>
+  </div>
+
+  <div class="stage-banner">
+    <div class="stage-banner-inner">
+      <div class="sb-greeting" id="sbGreeting">Your personalised setup</div>
+      <div class="sb-stage-name" id="sbStageName">—</div>
+      <div class="sb-desc" id="sbDesc">—</div>
+      <div class="sb-science">
+        <div class="sb-science-label">What the research says at this age</div>
+        <p id="sbScience">—</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search any device… iPhone, Xbox, Alexa, Roblox" autocomplete="off" oninput="filterDevices()">
+      <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+    </div>
+    <div class="cat-row" id="catRow"></div>
+  </div>
+
+  <div class="device-section">
+    <div class="results-count" id="resultsCount"></div>
+    <div id="deviceList"></div>
+
+    <!-- FULL OS -->
+    <div class="os-section" style="padding-left:0;padding-right:0;">
+      <div class="os-divider"></div>
+      <div class="os-hero">
+        <div class="os-tag">The Digital Pathway OS</div>
+        <h2>Setup is step one.<br>The <em>pathway</em> is the whole journey.</h2>
+        <p id="osPitch">Device controls protect today. The Pathway OS guides every stage from 4 to 16 — the parenting equivalent of Good Inside, built for the digital world.</p>
+        <ul class="os-feats">
+          <li>A complete pathway for every stage — first screen at 4 to full access at 16</li>
+          <li>DiGi — your AI advisor, trained on the research, available at 11pm when it kicks off</li>
+          <li>The exact words for every hard conversation: TikTok, mood drops, porn, unknown contacts</li>
+          <li>Weekly 3-action plan, tailored to your child's stage — five minutes each</li>
+          <li>Gradual milestone unlocks added straight to your calendar as your child grows</li>
+          <li>Digital wellbeing tracker with a trend chart over time</li>
+          <li>Multi-child profiles — one account for your whole family</li>
+        </ul>
+        <div class="os-price">
+          <div class="os-price-was">£12.99/month after launch</div>
+          <div class="os-price-now">£7.99<span>/mo for life</span></div>
+        </div>
+        <a class="os-btn" href="https://mailchi.mp/thesocialbillboard/founder" target="_blank">Claim Founder Rate — First 50 Only →</a>
+        <a class="os-fine" href="https://mailchi.mp/thesocialbillboard/founder" target="_blank">Locked for life · Launches to £12.99/mo after the first 50 members</a>
+      </div>
+
+      <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px;">Free guides vs the full OS</div>
+      <div class="compare">
+        <div class="cc">
+          <div class="cc-top"><div class="cc-tag">This Tool</div><div class="cc-name">Device Setup</div></div>
+          <div class="cc-body">
+            <div class="cc-row">All device guides</div>
+            <div class="cc-row">Age-matched limits</div>
+            <div class="cc-row">Calendar reminders</div>
+          </div>
+        </div>
+        <div class="cc feat">
+          <div class="cc-top"><div class="cc-tag">Full OS</div><div class="cc-name">The Pathway</div></div>
+          <div class="cc-body">
+            <div class="cc-row">All 5 stages</div>
+            <div class="cc-row">DiGi AI advisor</div>
+            <div class="cc-row">Every script</div>
+            <div class="cc-row">Weekly action plan</div>
+            <div class="cc-row">Wellbeing tracker</div>
+            <div class="cc-row">Milestone calendar</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tmn">
+        <div class="tmn-stars">★★★★★</div>
+        <p class="tmn-q">"I used to spiral every time the phone conversation came up. Now I have the exact words. It changed how we talk completely."</p>
+        <div class="tmn-who">Sarah M — parent of an 11-year-old</div>
+      </div>
+      <div class="tmn">
+        <div class="tmn-stars">★★★★★</div>
+        <p class="tmn-q">"Finally — a plan instead of a panic. DiGi feels like having an expert in my pocket at bedtime."</p>
+        <div class="tmn-who">Clare H — parent of two</div>
+      </div>
+
+      <a class="os-btn" href="https://mailchi.mp/thesocialbillboard/founder" target="_blank" style="margin-top:4px;">Claim Founder Rate at guidedchildhood.com →</a>
+      <p style="font-size:12px;font-weight:300;color:var(--ink-3);text-align:center;margin-top:12px;">£7.99/month locked for life · First 50 members only</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      <a href="https://mailchi.mp/thesocialbillboard/founder" target="_blank">guidedchildhood.com</a> — The OS for Modern Parenting<br>
+      Justin Phillips · Father of three · Built on the research of Odgers, Orben &amp; Przybylski<br>
+      Screen-time guidance aligned with AAP &amp; UK Online Safety Act 2023
+    </p>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ════════════ DATA ════════════ */
+
+// Stage mapping based on age + the research
+const STAGES = {
+  1: { name:"Foundation", ages:"4–7", title:"Foundation",
+    desc:"At this age it is shared screens and co-viewing — no solo devices, no feeds. Your presence is the protection.",
+    science:"The AAP recommends no more than one hour a day of high-quality content for ages 2–5, always co-viewed. For 6+, the focus shifts to consistent limits that protect sleep, activity and family time. Keep bedrooms and mealtimes device-free." },
+  2: { name:"First Steps", ages:"8–10", title:"First Steps",
+    desc:"Peer pressure around phones begins. Build the vocabulary — algorithms, privacy, digital footprint — before they own a device that needs it.",
+    science:"For school-age children the AAP advises consistent limits — commonly cited as up to two hours of recreational screen time — with parental controls in place and screens out of bedrooms 30–60 minutes before bed." },
+  3: { name:"Explorer", ages:"11–13", title:"Explorer — Critical Window",
+    desc:"The highest-care stage. Guided smartphone use, no social media yet. This is when to hold the pathway closest.",
+    science:"Cambridge research (Orben) identifies 11–13 as the peak sensitivity window, where social media shows its strongest link to lower life satisfaction — especially for girls. Watch for mood changes after use. Up to ~2 hours, with balance actively coached." },
+  4: { name:"Navigator", ages:"13–15", title:"Navigator",
+    desc:"Monitored social media enters the picture. The goal shifts from prevention to navigation and judgement.",
+    science:"The research is consistent: social media amplifies existing vulnerabilities rather than harming all children equally. Transparency (open oversight, not secret monitoring) and protected sleep remain the strongest levers at this age." },
+  5: { name:"Independent", ages:"16+", title:"Independent",
+    desc:"Full, trust-based access — the destination the whole pathway was building towards. AI literacy and judgement, not removed restrictions.",
+    science:"By 16, the evidence supports graduated full access for young people who have built the skills. The protective factors that matter most remain sleep, strong relationships, and the ability to self-regulate — not surveillance." }
+};
+
+function ageToStage(age){
+  if(age<=7) return 1;
+  if(age<=10) return 2;
+  if(age<=12) return 3; // 11-12 core critical window
+  if(age==13) return 3; // 13 still high-care; show explorer guidance
+  if(age<=15) return 4;
+  return 5;
+}
+
+// Concern options
+const CONCERNS = [
+  ["⏰","Too much screen time"],
+  ["📱","When to give a first phone"],
+  ["🎮","Gaming &amp; online play"],
+  ["💬","Social media &amp; messaging"],
+  ["😟","Mood changes after screens"],
+  ["🔒","Setting up controls properly"]
+];
+
+// FULL DEVICE LIBRARY
+// minAge = recommended minimum age for independent/owned use
+const DEVICES = [
+  // PHONES & TABLETS
+  { id:"iphone", name:"iPhone & iPad", cat:"Phones & Tablets", emoji:"📱", bg:"#EEF2FF",
+    sub:"Screen Time — Apple's parental controls", minAge:13,
+    why:"Screen Time is the most powerful parental control on any consumer platform — but most families use a fraction of it. These are the settings that actually change behaviour.",
+    steps:[
+      "<strong>Set a Screen Time Passcode — different from the unlock PIN.</strong> Settings → Screen Time → Use Screen Time Passcode. If your child knows both, the controls do nothing.",
+      "<strong>Turn on Downtime.</strong> Schedule from a set evening time — only approved apps work. Settings → Screen Time → Downtime. This is the Sleep layer, automated.",
+      "<strong>Set Communication Limits.</strong> Contacts Only during downtime for younger children. Settings → Screen Time → Communication Limits.",
+      "<strong>Content & Privacy Restrictions.</strong> Set age ratings for apps, films and music, and block explicit content. Settings → Screen Time → Content & Privacy Restrictions.",
+      "<strong>Review the weekly report together.</strong> Look at it with your child, not at them — self-awareness changes behaviour more than control."
+    ],
+    note:"Screen Time data is most powerful as a conversation starter. \"Was that what you wanted, or did it just happen?\"" },
+
+  { id:"android", name:"Android Phone & Tablet", cat:"Phones & Tablets", emoji:"🤖", bg:"#F0FFF4",
+    sub:"Google Family Link", minAge:13,
+    why:"Family Link gives you oversight of your child's whole Android device. It must be set up before their Google account is created — retrofitting is harder.",
+    steps:[
+      "<strong>Install Google Family Link</strong> on your phone and link your child's Google account. Under-13s must be created through Family Link by law.",
+      "<strong>Turn on app approval</strong> — every Play Store download needs your permission. The single most important control to enable.",
+      "<strong>Enable SafeSearch</strong> in Family Link to filter explicit results. Pair with router-level filtering for full coverage.",
+      "<strong>Set daily limits and a bedtime</strong> — when bedtime hits, the device locks automatically.",
+      "<strong>Review weekly activity reports</strong> together — time per app, most-used sites, location."
+    ],
+    note:"Family Link's automatic controls reduce at 13. Mark that birthday with a conversation about what trust looks like next — make it a milestone, not a sudden loss." },
+
+  { id:"firetablet", name:"Amazon Fire Tablet", cat:"Phones & Tablets", emoji:"🔥", bg:"#FFF1EC",
+    sub:"Amazon Kids & Kids+", minAge:4,
+    why:"Fire tablets are common first devices for young children. Amazon Kids turns a wide-open tablet into a genuinely controlled environment in minutes.",
+    steps:[
+      "<strong>Set up an Amazon Kids profile</strong> for your child — Settings → Profiles & Family Library. This restricts content automatically.",
+      "<strong>Set daily time limits and an age filter</strong> in the Parent Dashboard. You can set different limits for educational vs entertainment use.",
+      "<strong>Disable the adult browser and store</strong> from the Kids profile so they cannot wander out or make purchases.",
+      "<strong>Use Bedtime settings</strong> to lock the tablet overnight — keep it out of the bedroom regardless.",
+      "<strong>Review the Parent Dashboard weekly</strong> to see exactly what was watched, read and played."
+    ],
+    note:"Even with a locked-down Fire tablet, co-view with under-7s. The device manages content; you model how to use it." },
+
+  // GAMING
+  { id:"switch", name:"Nintendo Switch", cat:"Gaming", emoji:"🎮", bg:"#FFF5F0",
+    sub:"The best parental controls in gaming", minAge:7,
+    why:"Nintendo's controls come as a dedicated app, survive a factory reset, and give remote oversight from your phone. Best in class. Eight minutes to set up.",
+    steps:[
+      "<strong>Download the Nintendo Switch Parental Controls app</strong> and link it to the Switch via a code.",
+      "<strong>Set a restriction level</strong> — locks content to the right PEGI rating automatically. Cannot be changed without your PIN.",
+      "<strong>Set a daily play limit and bedtime</strong> — the console suspends or hard-locks when reached.",
+      "<strong>Disable online play and chat</strong> until your child is older — online multiplayer connects them with strangers.",
+      "<strong>Review friend requests together</strong> — online friends should be people known in real life."
+    ],
+    note:"Gaming is not the enemy. A child who stops when the timer goes is practising self-regulation — a skill worth far more than the game." },
+
+  { id:"xbox", name:"Xbox", cat:"Gaming", emoji:"🕹️", bg:"#EAF6EC",
+    sub:"Xbox Family Settings app", minAge:7,
+    why:"The Xbox Family Settings app puts full control on your phone — screen time, spending, content, and who your child can talk to online.",
+    steps:[
+      "<strong>Install the Xbox Family Settings app</strong> and add your child's account to your family group.",
+      "<strong>Set content filters by age</strong> so games and apps above the limit are blocked automatically.",
+      "<strong>Set screen time schedules</strong> per day — the console signs out when time runs out.",
+      "<strong>Control communication and multiplayer</strong> — restrict voice and text chat to friends only, or off entirely for younger children.",
+      "<strong>Require approval for purchases</strong> so no surprise spending on add-ons or games."
+    ],
+    note:"Voice chat with strangers is the main risk on console gaming. For under-13s, keep it to friends-only or off, and revisit as trust is earned." },
+
+  { id:"playstation", name:"PlayStation 5", cat:"Gaming", emoji:"🎯", bg:"#EEF2FF",
+    sub:"PlayStation Family Management", minAge:7,
+    why:"PS5 family controls are set through your account and cover age ratings, play time, spending, and online communication for each child.",
+    steps:[
+      "<strong>Create a child account</strong> under your family on the PlayStation Network and set their date of birth accurately.",
+      "<strong>Set age-level restrictions</strong> for games, Blu-ray and streaming apps.",
+      "<strong>Set monthly spending limits</strong> and require your approval for purchases.",
+      "<strong>Restrict communication and user-generated content</strong> — control messaging and who can interact with your child.",
+      "<strong>Set play-time limits</strong> by day, with an automatic logout when reached."
+    ],
+    note:"Set the child's real birth date — many controls apply automatically based on age, so an inflated age quietly removes protections." },
+
+  { id:"roblox", name:"Roblox", cat:"Gaming", emoji:"🟥", bg:"#FFF0F0",
+    sub:"Account restrictions & parental PIN", minAge:8,
+    why:"Roblox is hugely popular with under-13s and contains user-created content and chat. Default settings are too open — these tighten it considerably.",
+    steps:[
+      "<strong>Set the correct age</strong> on the account — under-13 accounts get stronger default protections automatically.",
+      "<strong>Add a Parental PIN</strong> (Settings → Security) so your child cannot change the safety settings themselves.",
+      "<strong>Enable Account Restrictions</strong> to limit your child to a curated set of age-appropriate experiences.",
+      "<strong>Set chat to off or friends-only</strong> under Settings → Privacy — control who can message and chat in-game.",
+      "<strong>Turn off the ability to spend</strong> by not storing card details and reviewing any Robux purchases together."
+    ],
+    note:"Roblox is social, not just a game. Treat it like an early social platform — talk about who they play with and what \"online friends\" really means." },
+
+  // STREAMING & SMART HOME
+  { id:"youtube", name:"YouTube & YouTube Kids", cat:"Streaming & Smart Home", emoji:"▶️", bg:"#FFF1F0",
+    sub:"The platform most parents underestimate", minAge:13,
+    why:"YouTube is the most-used platform by UK children and the one with the biggest gap between assumed safety and reality. The algorithm optimises for watch time, not wellbeing.",
+    steps:[
+      "<strong>Under 10: YouTube Kids only.</strong> Enable Approved Content Only for the youngest. Delete or restrict the main app.",
+      "<strong>Turn off Autoplay everywhere.</strong> This single setting restores the moment of decision — where self-regulation lives.",
+      "<strong>For 13+, use Supervised Accounts</strong> (Family Link) to set content level and pause history without using their login.",
+      "<strong>Enable Restricted Mode</strong> on shared devices and lock it with your Family Link PIN.",
+      "<strong>Watch together sometimes</strong> — ask \"how did this get on your feed?\" to build algorithm literacy."
+    ],
+    note:"Say it plainly: \"YouTube is very good at knowing what keeps you watching. That's its job. Your job is knowing when to stop.\"" },
+
+  { id:"alexa", name:"Amazon Echo / Alexa", cat:"Streaming & Smart Home", emoji:"📢", bg:"#FEF3E0",
+    sub:"Voice assistant & smart speaker", minAge:4,
+    why:"Alexa listens by default and — linked to your account — can buy things, play anything, and reach the open internet by voice. Five minutes of setup makes it genuinely family-safe.",
+    steps:[
+      "<strong>Enable Amazon Kids</strong> on the child's profile to filter content and block explicit music.",
+      "<strong>Set a voice purchasing PIN</strong> (Settings → Voice Purchasing) so no command can charge your account.",
+      "<strong>Turn off Drop In</strong> for children's devices to prevent unexpected call-ins.",
+      "<strong>Set Do Not Disturb</strong> for night hours — and keep Alexa out of bedrooms entirely.",
+      "<strong>Review voice history weekly</strong> in the Alexa app — the transparency layer of the pathway."
+    ],
+    note:"Talk to your child about what Alexa is: \"It hears everything in this room, so we treat it the way we treat any conversation.\"" },
+
+  { id:"firestick", name:"Amazon Fire TV / Fire Stick", cat:"Streaming & Smart Home", emoji:"📺", bg:"#FFF0EC",
+    sub:"Streaming device on any TV", minAge:6,
+    why:"A Fire Stick turns any TV into full streaming access — Netflix, YouTube, Prime and more. Without controls, your child has open adult access.",
+    steps:[
+      "<strong>Turn on Parental Controls</strong> (Settings → Preferences → Parental Controls) and set a PIN.",
+      "<strong>Set the content rating ceiling</strong> appropriate to your child's age.",
+      "<strong>Require a PIN for purchases and app installs</strong> so nothing new appears without you.",
+      "<strong>Set PINs and profiles inside each app</strong> — Fire controls what's installed; each app controls what's watched.",
+      "<strong>Keep the TV in a shared space</strong> — no streaming devices in bedrooms."
+    ],
+    note:"Turn off autoplay in every streaming app. The habit of choosing what to watch — not just watching what comes next — is a real skill." },
+
+  { id:"appletv", name:"Apple TV", cat:"Streaming & Smart Home", emoji:"🖥️", bg:"#F4F0FF",
+    sub:"tvOS Screen Time & restrictions", minAge:6,
+    why:"Apple TV uses the same Screen Time system as iPhone, with content restrictions, purchase controls and downtime for the whole household screen.",
+    steps:[
+      "<strong>Turn on Screen Time</strong> (Settings → Screen Time) and set a passcode only you know.",
+      "<strong>Set Content Restrictions</strong> for films, TV and apps by age rating.",
+      "<strong>Require a passcode for purchases and downloads.</strong>",
+      "<strong>Set Downtime</strong> for evenings so the main screen winds down with the household.",
+      "<strong>Use separate profiles</strong> so each family member's limits and watch history stay distinct."
+    ],
+    note:"Shared family screens are a chance to model good habits — co-view, talk about what you watch, and end on a decision rather than a cliffhanger." },
+
+  { id:"roku", name:"Roku", cat:"Streaming & Smart Home", emoji:"📡", bg:"#F0FEF4",
+    sub:"PIN & content controls", minAge:6,
+    why:"Roku controls live in your Roku account online rather than the device. A PIN stops new channels and purchases; profiles control what each viewer sees.",
+    steps:[
+      "<strong>Set a PIN</strong> in your Roku account (my.roku.com) and require it for purchases and adding channels.",
+      "<strong>Create a Kids profile</strong> or use Roku's content level settings to filter mature channels.",
+      "<strong>Disable the channel store</strong> for children so they cannot add apps without you.",
+      "<strong>Set PINs inside streaming apps</strong> (Netflix, Disney+) for a second layer of control.",
+      "<strong>Keep streaming out of the bedroom</strong> and review what's been added periodically."
+    ],
+    note:"Whole-home protection still starts at the router. Combine Roku's PIN with router-level DNS filtering for the strongest setup." },
+
+  { id:"smarttv", name:"Smart TV (Samsung, LG, Sony)", cat:"Streaming & Smart Home", emoji:"📺", bg:"#EEF2FF",
+    sub:"Built-in TV parental controls", minAge:6,
+    why:"Modern smart TVs have their own app stores, browsers and voice assistants. The built-in controls vary by brand but all support a PIN and content lock.",
+    steps:[
+      "<strong>Find Parental Controls</strong> in Settings (often under Broadcasting, General, or System) and set a PIN.",
+      "<strong>Set a programme rating lock</strong> so content above your chosen rating needs the PIN.",
+      "<strong>Restrict or PIN-lock the app store</strong> so new streaming apps can't be added freely.",
+      "<strong>Disable the built-in web browser</strong> if your TV has one — it usually has no filtering.",
+      "<strong>Apply your family DNS at the router</strong> so the TV's apps and browser are filtered too."
+    ],
+    note:"The TV's own controls only cover live broadcast and its app store. The real protection for everything streamed comes from the router and each app's own settings." },
+
+  // COMPUTERS
+  { id:"chromebook", name:"Chromebook", cat:"Computers", emoji:"💻", bg:"#FFFBF0",
+    sub:"Family Link supervised account", minAge:8,
+    why:"Chromebooks are standard school devices. A supervised Google account gives you site filtering, app approval and activity reports across the whole machine.",
+    steps:[
+      "<strong>Sign in with a supervised Google account</strong> managed through Family Link.",
+      "<strong>Turn on app and extension approval</strong> so nothing installs without you.",
+      "<strong>Set SafeSearch and website filters</strong> — allow or block specific sites.",
+      "<strong>Set screen time and bedtime limits</strong> through Family Link.",
+      "<strong>Note school-managed devices</strong> may have their own controls — ask the school what's already in place."
+    ],
+    note:"If the Chromebook is school-issued, your home controls may be limited. Ask what filtering the school applies and what you can add at the router." },
+
+  { id:"windows", name:"Windows PC", cat:"Computers", emoji:"🪟", bg:"#EEF6FF",
+    sub:"Microsoft Family Safety", minAge:8,
+    why:"Microsoft Family Safety covers screen time, content filters, spending and activity reporting across a Windows PC and Xbox under one family group.",
+    steps:[
+      "<strong>Create a child account</strong> and add it to your Microsoft family group.",
+      "<strong>Turn on web and search filtering</strong> to block mature sites and force SafeSearch in Edge.",
+      "<strong>Set app and game limits by age rating.</strong>",
+      "<strong>Set screen time schedules</strong> across devices in the family group.",
+      "<strong>Review the weekly activity email</strong> Microsoft sends you."
+    ],
+    note:"Web filtering only works fully in Microsoft Edge. Consider blocking other browsers for younger children, and filter at the router as a backstop." },
+
+  // SOCIAL & MESSAGING
+  { id:"tiktok", name:"TikTok", cat:"Social & Messaging", emoji:"🎵", bg:"#F0F0F5",
+    sub:"Family Pairing & restrictions", minAge:13,
+    why:"TikTok's minimum age is 13. Its algorithm is among the most powerful at holding attention. Family Pairing links your account to your teen's to set guardrails together.",
+    steps:[
+      "<strong>Use Family Pairing</strong> (Settings → Family Pairing) to link your phone to your teen's account.",
+      "<strong>Set screen time limits</strong> and turn on Restricted Mode to filter mature content.",
+      "<strong>Set the account to private</strong> and limit who can comment, duet and message.",
+      "<strong>Turn off direct messages</strong> for younger teens, or restrict to friends.",
+      "<strong>Review the For You feed together</strong> — talk about why certain content keeps appearing."
+    ],
+    note:"Before any social account, have the algorithm conversation: \"The feed isn't random. Engineers design it to keep you watching. Ask yourself — did I choose this, or did it choose me?\"" },
+
+  { id:"snapchat", name:"Snapchat", cat:"Social & Messaging", emoji:"👻", bg:"#FFFCE8",
+    sub:"Family Center & location", minAge:13,
+    why:"Snapchat's disappearing messages and location-sharing (Snap Map) carry specific risks. Family Center lets you see who your teen is talking to without reading the messages.",
+    steps:[
+      "<strong>Set up Family Center</strong> (Settings → Family Center) to see who your teen messages, without content.",
+      "<strong>Turn off the Snap Map</strong> or set it to Ghost Mode so your child's location isn't shared.",
+      "<strong>Set Contact Me and Story privacy</strong> to Friends Only.",
+      "<strong>Disable Quick Add</strong> so strangers can't easily find and add your child.",
+      "<strong>Talk about disappearing messages</strong> — nothing online truly disappears; screenshots last."
+    ],
+    note:"Snap Map location-sharing is the setting parents most often miss. Check it together and make Ghost Mode the default." },
+
+  { id:"instagram", name:"Instagram", cat:"Social & Messaging", emoji:"📷", bg:"#FFF0F5",
+    sub:"Teen Accounts & supervision", minAge:13,
+    why:"Instagram now defaults under-18s into Teen Accounts with built-in protections. Supervision lets you set limits and see who they follow.",
+    steps:[
+      "<strong>Confirm they have a Teen Account</strong> — these are private by default with restricted messaging.",
+      "<strong>Set up Supervision</strong> (Settings → Supervision) to set daily limits and see new followers.",
+      "<strong>Set the account to private</strong> and limit messaging to people they follow.",
+      "<strong>Turn on Restricted/Sensitive Content controls</strong> to reduce mature content in Explore.",
+      "<strong>Set a daily time limit and a break reminder.</strong>"
+    ],
+    note:"Comparison is the hidden harm here, especially for girls. \"When you see someone's highlight reel, you're comparing it to your behind-the-scenes — that's always an unfair fight.\"" },
+
+  { id:"whatsapp", name:"WhatsApp", cat:"Social & Messaging", emoji:"💬", bg:"#EAF7EE",
+    sub:"Privacy & group settings", minAge:13,
+    why:"WhatsApp has limited built-in parental controls, so the protection comes from privacy settings and conversation. Groups are the main place children encounter unknown contacts.",
+    steps:[
+      "<strong>Set privacy to My Contacts</strong> for profile photo, last seen, and about (Settings → Privacy).",
+      "<strong>Control who can add them to groups</strong> — set to My Contacts to stop strangers adding them.",
+      "<strong>Turn on disappearing messages awareness</strong> and talk about screenshots.",
+      "<strong>Show them how to block and report</strong> a contact, and that doing so is always OK.",
+      "<strong>Agree that unknown numbers are never replied to</strong> without checking with you."
+    ],
+    note:"Group chats are where most issues start. Keep the door open: \"If a group ever gets nasty or weird, you can always show me — you won't be in trouble.\"" }
+];
+
+/* ════════════ STATE ════════════ */
+let state = { name:"", age:null, stage:null, concerns:[], unlocked:true };
+let activeCat = "All";
+const FREE_PREVIEW_ID = null; // set after sorting
+
+/* ════════════ INTAKE ════════════ */
+const ageGrid = document.getElementById('ageGrid');
+for(let a=4; a<=16; a++){
+  const b = document.createElement('button');
+  b.className='age-btn';
+  b.innerHTML = `<div class="a-num">${a}</div><div class="a-lbl">years</div>`;
+  b.onclick = ()=>selectAge(a, b);
+  ageGrid.appendChild(b);
+}
+// add 16+ visual note via last button label
+ageGrid.lastChild.querySelector('.a-lbl').textContent='+ years';
+
+const concernList = document.getElementById('concernList');
+CONCERNS.forEach(([emoji,label],i)=>{
+  const b=document.createElement('button');
+  b.className='concern-btn';
+  b.innerHTML=`<span class="c-check"></span><span>${emoji} ${label}</span>`;
+  b.onclick=()=>{
+    b.classList.toggle('sel');
+    const txt = label.replace(/&amp;/g,'&');
+    if(b.classList.contains('sel')) state.concerns.push(txt);
+    else state.concerns = state.concerns.filter(c=>c!==txt);
+  };
+  concernList.appendChild(b);
+});
+
+document.getElementById('childName').addEventListener('input', e=>{
+  state.name = e.target.value.trim();
+  checkContinue();
+});
+
+function selectAge(a, btn){
+  state.age = a;
+  document.querySelectorAll('.age-btn').forEach(x=>x.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('concernStep').style.display='block';
+  checkContinue();
+}
+function checkContinue(){
+  document.getElementById('intakeContinue').disabled = !(state.age);
+}
+document.getElementById('intakeContinue').onclick = ()=>{
+  state.stage = ageToStage(state.age);
+  buildDashboard();
+  switchScreen('dash');
+};
+function skipIntake(){
+  state.age=null; state.stage=null; state.name="";
+  buildDashboard(true);
+  switchScreen('dash');
+}
+function switchScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById('screen-'+id).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ════════════ DASHBOARD ════════════ */
+function buildDashboard(skipped=false){
+  if(!skipped && state.stage){
+    const st = STAGES[state.stage];
+    // members keep the "Member Access" pill — don't overwrite
+    document.getElementById('sbGreeting').innerHTML = state.name
+      ? `Your pathway for <strong>${escapeHtml(state.name)}</strong>, age ${state.age}`
+      : `Your pathway · age ${state.age}`;
+    document.getElementById('sbStageName').innerHTML = `Stage ${state.stage}: <em>${st.title}</em>`;
+    document.getElementById('sbDesc').textContent = st.desc;
+    document.getElementById('sbScience').textContent = st.science;
+    // personalise OS pitch
+    const nm = state.name ? escapeHtml(state.name) : "your child";
+    document.getElementById('osPitch').innerHTML =
+      `${nm} is at Stage ${state.stage}. The Pathway OS shows you exactly what comes next — and walks beside you all the way to Stage 5 at 16. The parenting equivalent of Good Inside, built for the digital world.`;
+  } else {
+    document.querySelector('.stage-banner').style.display='none';
+  }
+  buildCategories();
+  renderDevices();
+}
+
+function buildCategories(){
+  const cats = ["All", ...new Set(DEVICES.map(d=>d.cat))];
+  const row = document.getElementById('catRow');
+  row.innerHTML='';
+  cats.forEach(c=>{
+    const chip=document.createElement('button');
+    chip.className='cat-chip'+(c===activeCat?' on':'');
+    chip.textContent=c;
+    chip.onclick=()=>{activeCat=c;buildCategories();filterDevices();};
+    row.appendChild(chip);
+  });
+}
+
+function deviceMatchesAge(d){
+  if(!state.age) return null;
+  if(state.age >= d.minAge) return "ok";
+  return "early";
+}
+
+function renderDevices(){
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  let list = DEVICES.slice();
+
+  // sort: age-appropriate first if we know age
+  if(state.age){
+    list.sort((a,b)=>{
+      const aOk = state.age>=a.minAge?0:1;
+      const bOk = state.age>=b.minAge?0:1;
+      if(aOk!==bOk) return aOk-bOk;
+      return a.minAge-b.minAge;
+    });
+  }
+  // category filter
+  if(activeCat!=="All") list = list.filter(d=>d.cat===activeCat);
+  // search filter
+  if(q) list = list.filter(d=>
+    d.name.toLowerCase().includes(q) ||
+    d.cat.toLowerCase().includes(q) ||
+    d.sub.toLowerCase().includes(q)
+  );
+
+  const wrap = document.getElementById('deviceList');
+  const count = document.getElementById('resultsCount');
+  wrap.innerHTML='';
+
+  if(list.length===0){
+    wrap.innerHTML=`<div class="no-results"><strong>No device found for "${escapeHtml(q)}"</strong>Try a brand or type — like "iPad", "console", or "TV". Every common device is covered.</div>`;
+    count.textContent='';
+    return;
+  }
+
+  count.textContent = `${list.length} device${list.length>1?'s':''}${activeCat!=='All'?' in '+activeCat:''}`;
+
+  list.forEach((d,idx)=>{
+    // FREE PREVIEW: first card always open-able free. Rest locked until unlocked.
+    const isFree = (idx===0);
+    const locked = !state.unlocked && !isFree;
+
+    const card=document.createElement('div');
+    card.className='device-card'+(locked?' locked':'');
+    card.dataset.id=d.id;
+
+    const ageMatch = deviceMatchesAge(d);
+    let ageFlagHtml='';
+    if(ageMatch==='ok'){
+      ageFlagHtml=`<span class="age-flag">✓ Suitable to set up now for age ${state.age}</span>`;
+    } else if(ageMatch==='early'){
+      ageFlagHtml=`<span class="age-flag" style="background:#FBF5E6;color:#C9920A;">◷ Most families introduce this around age ${d.minAge}+ — here's how, for when you're ready</span>`;
+    }
+
+    card.innerHTML = `
+      <div class="dc-head">
+        <div class="dc-emoji" style="background:${d.bg};">${d.emoji}</div>
+        <div class="dc-meta">
+          <div class="dc-name">${d.name}</div>
+          <div class="dc-sub">${d.sub}</div>
+        </div>
+        <div class="dc-right">
+          ${locked?'<span class="dc-lock">🔒</span>':''}
+          <div class="dc-toggle"><svg width="13" height="8" viewBox="0 0 13 8" fill="none"><path d="M1 1l5.5 5.5L12 1" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <div class="dc-body"><div class="dc-inner">
+        ${ageFlagHtml}
+        <p class="dc-why">${d.why}</p>
+        <ul class="steps">
+          ${d.steps.map((s,i)=>`<li class="step"><span class="s-num">${i+1}</span><span class="s-text">${s}</span></li>`).join('')}
+        </ul>
+        <div class="pnote"><strong>Pathway note:</strong> ${d.note}</div>
+        <div class="cal-add" onclick="event.stopPropagation();addToCalendar('${d.id}')">
+          <div class="cal-icon">📅</div>
+          <div class="cal-text">
+            <div class="cal-title">Add a review reminder</div>
+            <div class="cal-sub">Revisit ${d.name} settings as ${state.name||'your child'} grows</div>
+          </div>
+          <span class="cal-arrow">+</span>
+        </div>
+      </div></div>
+    `;
+
+    card.querySelector('.dc-head').onclick = ()=>{
+      if(locked){ showLock(); return; }
+      const open = card.classList.contains('open');
+      document.querySelectorAll('.device-card').forEach(c=>c.classList.remove('open'));
+      if(!open) card.classList.add('open');
+    };
+
+    wrap.appendChild(card);
+
+    // After the free card, inject the lock gate (once) if not unlocked
+    if(isFree && !state.unlocked){
+      wrap.appendChild(buildLockGate());
+    }
+  });
+}
+
+function buildLockGate(){
+  const div=document.createElement('div');
+  div.className='lock-card';
+  div.id='lockGate';
+  div.innerHTML=`
+    <div class="lock-inner">
+      <div class="lock-count">⬡ 131 parents have unlocked the full library</div>
+      <div class="lock-icon">🔓</div>
+      <div class="lock-title">Unlock every device guide</div>
+      <div class="lock-desc">Enter your email to open all ${DEVICES.length} step-by-step guides — free. You'll also get the weekly pathway newsletter.</div>
+      <div class="lock-form">
+        <input type="email" id="lockEmail" class="lock-input" placeholder="you@email.com" autocomplete="email">
+        <button class="lock-btn" onclick="submitEmail()">Unlock the full library →</button>
+      </div>
+      <p class="lock-fine">Free forever. Unsubscribe any time. The first 50 subscribers get the founder rate on the full Digital Pathway OS — £7.99/month for life.</p>
+    </div>`;
+  return div;
+}
+
+function submitEmail(){
+  const email = document.getElementById('lockEmail').value.trim();
+  if(!email || !email.includes('@')){
+    toast('Please enter a valid email');
+    return;
+  }
+  // Unlock locally so it's open if they come back, then send them to the founder signup
+  state.unlocked = true;
+  toast('Taking you to confirm your access…');
+  setTimeout(()=>{
+    window.location.href = 'https://mailchi.mp/thesocialbillboard/founder?email=' + encodeURIComponent(email);
+  }, 700);
+}
+
+function showLock(){
+  const gate=document.getElementById('lockGate');
+  if(gate){
+    gate.scrollIntoView({behavior:'smooth',block:'center'});
+    gate.style.transition='transform .15s';
+    gate.style.transform='scale(1.02)';
+    setTimeout(()=>gate.style.transform='scale(1)',180);
+    const inp=document.getElementById('lockEmail');
+    if(inp) setTimeout(()=>inp.focus(),400);
+  }
+}
+
+function filterDevices(){
+  const q=document.getElementById('searchInput').value;
+  document.getElementById('searchClear').classList.toggle('show', q.length>0);
+  renderDevices();
+}
+function clearSearch(){
+  document.getElementById('searchInput').value='';
+  document.getElementById('searchClear').classList.remove('show');
+  renderDevices();
+}
+
+/* ════════════ CALENDAR ════════════ */
+function addToCalendar(id){
+  const d = DEVICES.find(x=>x.id===id);
+  const child = state.name || 'my child';
+  // build a 3-month-out reminder .ics
+  const dt = new Date();
+  dt.setMonth(dt.getMonth()+3);
+  const stamp = dt.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  const title = `Review ${d.name} settings for ${child}`;
+  const desc = `Guided Childhood reminder: revisit your ${d.name} setup as ${child} grows. Check limits, content settings and have a quick chat about how it's going. More at guidedchildhood.com`;
+  const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Guided Childhood//Device Pathway//EN
+BEGIN:VEVENT
+UID:${id}-${Date.now()}@guidedchildhood.com
+DTSTAMP:${stamp}
+DTSTART:${stamp}
+SUMMARY:${title}
+DESCRIPTION:${desc}
+BEGIN:VALARM
+TRIGGER:-PT0M
+ACTION:DISPLAY
+DESCRIPTION:${title}
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+  const blob = new Blob([ics],{type:'text/calendar'});
+  const url = URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`review-${id}.ics`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast(`📅 Reminder saved — review in 3 months`);
+}
+
+/* ════════════ HELPERS ════════════ */
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+</script>
+</body>
+</html>
