@@ -6,25 +6,32 @@
 <title>Guided Childhood — Device Setup Pathway</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#1C1714; --ink-2:#4B433D; --ink-3:#8C857D; --ink-4:rgba(28,23,20,.07);
-  --white:#fff; --paper:#fff; --cream:#FBF6EC;
-  --blue:#DEE9F6; --blue-2:#C9DCF0;
-  --mint:#CDEAD9; --mint-2:#A9DBC0; --sage:#3C7A5A; --sage-deep:#2F6249; --sage-lt:#E9F4ED;
-  --yellow:#F4C73E; --yellow-deep:#E3B11C;
-  --line:rgba(28,23,20,.09);
-  --display:'Fredoka',sans-serif;
-  --body:'Hanken Grotesk',-apple-system,sans-serif;
-  --mono:'Space Mono',ui-monospace,monospace;
+  --cream:#F7F3EE; --warm:#FDFBF8;
+  --ink:#1C1C1C; --ink-soft:#4A4A4A; --ink-muted:#6E6A62; --ink-light:#9B958A;
+  --green:#AFDCA2; --green-dark:#2E7D5A; --green-lt:#EEF7F2;
+  --coral:#D4600A; --coral-lt:#FEF3E8;
+  --gold:#F2C94C; --gold-lt:#FEFAE8; --gold-dark:#C9962A; --gold-hover:#E3B53A;
+  --lav:#E7ECF8; --lav-deep:#3D5BA9;
+  --border:#E4DFD7;
+  --sans:'Hanken Grotesk',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --ink-2:var(--ink-soft); --ink-3:var(--ink-muted); --ink-4:rgba(28,23,20,.06);
+  --paper:var(--warm); --white:#fff;
+  --mint:var(--green-lt); --mint-2:var(--green); --sage:var(--green-dark); --sage-deep:var(--green-dark); --sage-lt:var(--green-lt);
+  --yellow:var(--gold); --yellow-deep:var(--gold-hover);
+  --line:var(--border);
+  --blue:var(--lav); --blue-2:var(--lav);
+  --display:'Hanken Grotesk',system-ui,sans-serif;
+  --body:'Hanken Grotesk',system-ui,sans-serif;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
 body{font-family:var(--body);background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;font-weight:400;}
 
-/* labels / eyebrows = mono accent (the Good Inside tell) */
-.intake-eyebrow,.sb-science-label,.os-tag,.cc-tag,.lock-count,.results-count{font-family:var(--mono);}
+.intake-eyebrow,.sb-science-label,.os-tag,.cc-tag,.results-count{font-family:var(--mono);}
 
 .screen{display:none;}
 .screen.on{display:block;animation:fade .3s ease;}
@@ -35,7 +42,7 @@ body{font-family:var(--body);background:var(--white);color:var(--ink);-webkit-fo
 .intake{min-height:100vh;background:var(--white);padding:52px 24px;display:flex;flex-direction:column;justify-content:center;max-width:480px;margin:0 auto;}
 .intake>*{animation:rise .5s both;}
 .intake-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:18px;text-align:center;animation-delay:.02s;}
-.intake h1{font-family:var(--display);font-size:34px;font-weight:600;line-height:1.12;letter-spacing:-.5px;text-align:center;margin-bottom:14px;animation-delay:.06s;}
+.intake h1{font-family:var(--sans);font-size:34px;font-weight:800;line-height:1.12;letter-spacing:-.04em;text-align:center;margin-bottom:14px;animation-delay:.06s;}
 .intake h1 em{font-style:normal;color:var(--sage);}
 .intake-sub{font-size:15.5px;font-weight:400;line-height:1.6;color:var(--ink-2);text-align:center;max-width:340px;margin:0 auto 38px;animation-delay:.1s;}
 .q-step{margin-bottom:24px;animation:rise .5s both .16s;}
@@ -55,24 +62,29 @@ body{font-family:var(--body);background:var(--white);color:var(--ink);-webkit-fo
 .concern-btn .c-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 .concern-btn.sel .c-check{border-color:var(--sage);background:var(--sage);}
 .concern-btn.sel .c-check::after{content:'✓';color:#fff;font-size:11px;font-weight:700;}
-.intake-btn{width:100%;background:var(--yellow);color:var(--ink);font-size:17px;font-weight:600;font-family:var(--display);padding:18px;border:none;border-radius:18px;cursor:pointer;margin-top:10px;box-shadow:0 4px 0 var(--yellow-deep);transition:transform .12s,box-shadow .12s;}
-.intake-btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--yellow-deep);}
-.intake-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:0 4px 0 var(--yellow-deep);}
-.intake-skip{display:block;text-align:center;margin-top:18px;font-size:13px;color:var(--ink-3);text-decoration:none;background:none;border:none;cursor:pointer;width:100%;font-family:var(--mono);}
+.intake-btn{width:100%;background:var(--gold);color:var(--ink);font-size:.85rem;font-weight:700;font-family:var(--mono);letter-spacing:.04em;padding:18px;border:none;border-radius:16px;cursor:pointer;margin-top:10px;box-shadow:0 5px 0 var(--gold-hover);transition:transform .12s,box-shadow .12s;}
+.intake-btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--gold-hover);}
+.intake-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:0 5px 0 var(--gold-hover);}
+.intake-skip{display:block;text-align:center;margin-top:18px;font-size:.72rem;color:var(--ink-muted);text-decoration:none;background:none;border:none;cursor:pointer;width:100%;font-family:var(--mono);}
+
+/* ── GATE ── */
+.gate-ban-note{background:var(--coral-lt);border-radius:14px;padding:14px 18px;border-left:3px solid var(--coral);margin-top:20px;}
+.gate-ban-note .note-eyebrow{font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+.gate-ban-note p{font-size:.84rem;color:var(--ink-soft);line-height:1.65;margin:0;}
 
 /* ── HEADER ── */
 .app-header{background:var(--white);border-bottom:1px solid var(--line);padding:18px 20px;}
 .app-header-top{display:flex;align-items:center;justify-content:space-between;max-width:520px;margin:0 auto;}
-.brand{font-family:var(--display);font-size:20px;font-weight:700;letter-spacing:-.3px;}
-.brand em{font-style:normal;color:var(--sage);}
-.stage-pill{background:var(--mint);border:none;border-radius:40px;padding:6px 14px;font-size:11px;font-weight:700;color:var(--sage-deep);font-family:var(--mono);}
+.brand{font-family:var(--sans);font-size:1.1rem;font-weight:800;letter-spacing:-.02em;}
+.brand em{font-style:normal;color:var(--green-dark);}
+.stage-pill{background:var(--green-lt);border:none;border-radius:40px;padding:6px 14px;font-size:.62rem;font-weight:700;color:var(--green-dark);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;}
 
 /* ── STAGE BANNER (powder-blue block, soft curve) ── */
 .stage-banner{background:var(--blue);padding:30px 20px 40px;border-radius:0 0 38px 38px;}
 .stage-banner-inner{max-width:520px;margin:0 auto;}
 .sb-greeting{font-size:13px;color:var(--ink-2);margin-bottom:7px;font-family:var(--mono);}
 .sb-greeting strong{color:var(--ink);font-weight:700;}
-.sb-stage-name{font-family:var(--display);font-size:27px;font-weight:600;line-height:1.1;margin-bottom:9px;letter-spacing:-.3px;}
+.sb-stage-name{font-family:var(--sans);font-size:1.6rem;font-weight:800;line-height:1.1;margin-bottom:9px;letter-spacing:-.035em;}
 .sb-stage-name em{font-style:normal;color:var(--sage);}
 .sb-desc{font-size:14.5px;font-weight:400;color:var(--ink-2);line-height:1.6;}
 .sb-science{margin-top:16px;background:var(--white);border-radius:16px;padding:16px 18px;border-left:4px solid var(--sage);}
@@ -105,7 +117,7 @@ body{font-family:var(--body);background:var(--white);color:var(--ink);-webkit-fo
 .dc-head{display:flex;align-items:center;gap:14px;padding:16px;}
 .dc-emoji{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0;}
 .dc-meta{flex:1;min-width:0;}
-.dc-name{font-family:var(--display);font-size:16px;font-weight:600;color:var(--ink);margin-bottom:1px;}
+.dc-name{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:1px;}
 .dc-sub{font-size:12px;font-weight:400;color:var(--ink-3);}
 .dc-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
 .dc-lock{font-size:14px;color:var(--ink-3);}
@@ -135,19 +147,8 @@ body{font-family:var(--body);background:var(--white);color:var(--ink);-webkit-fo
 .cal-sub{font-size:11.5px;font-weight:400;color:var(--ink-2);}
 .cal-arrow{color:var(--sage);font-size:20px;font-weight:700;}
 
-/* ── EMAIL LOCK ── */
-.lock-card{border-radius:22px;margin-bottom:11px;overflow:hidden;background:var(--mint);}
-.lock-inner{padding:28px 22px;text-align:center;}
-.lock-icon{width:54px;height:54px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px;}
-.lock-title{font-family:var(--display);font-size:23px;font-weight:600;margin-bottom:9px;letter-spacing:-.3px;}
-.lock-desc{font-size:14px;font-weight:400;color:var(--sage-deep);line-height:1.55;margin-bottom:20px;max-width:320px;margin-left:auto;margin-right:auto;}
-.lock-form{display:flex;flex-direction:column;gap:11px;max-width:330px;margin:0 auto;}
-.lock-input{width:100%;padding:16px;border:2px solid rgba(60,122,90,.25);border-radius:15px;font-family:inherit;font-size:15px;background:var(--white);text-align:center;}
-.lock-input:focus{outline:none;border-color:var(--sage);}
-.lock-btn{background:var(--yellow);color:var(--ink);font-size:16px;font-weight:600;font-family:var(--display);padding:17px;border:none;border-radius:16px;cursor:pointer;box-shadow:0 4px 0 var(--yellow-deep);transition:transform .12s,box-shadow .12s;}
-.lock-btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--yellow-deep);}
-.lock-fine{font-size:11px;color:var(--sage-deep);opacity:.85;margin-top:14px;line-height:1.5;}
-.lock-count{display:inline-flex;align-items:center;gap:6px;background:var(--white);border-radius:40px;padding:6px 14px;font-size:11px;font-weight:700;color:var(--sage-deep);margin-bottom:16px;}
+/* ── EMAIL LOCK (removed — gate is now on intake flow) ── */
+.lock-card{display:none;}
 
 /* ── FULL OS (mint block) ── */
 .os-section{max-width:520px;margin:0 auto;padding:0 20px 60px;}
@@ -156,7 +157,7 @@ body{font-family:var(--body);background:var(--white);color:var(--ink);-webkit-fo
 .os-hero::before{content:'';position:absolute;top:-90px;right:-70px;width:240px;height:240px;border-radius:50%;background:var(--mint-2);opacity:.5;}
 .os-hero>*{position:relative;}
 .os-tag{display:inline-block;background:var(--white);border-radius:40px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sage-deep);margin-bottom:18px;}
-.os-hero h2{font-family:var(--display);font-size:30px;font-weight:600;line-height:1.12;letter-spacing:-.4px;margin-bottom:11px;}
+.os-hero h2{font-family:var(--sans);font-size:1.75rem;font-weight:800;line-height:1.12;letter-spacing:-.04em;margin-bottom:11px;}
 .os-hero h2 em{font-style:normal;color:var(--sage);}
 .os-hero p{font-size:15px;font-weight:400;color:var(--sage-deep);line-height:1.6;max-width:340px;margin:0 auto 26px;}
 .os-feats{list-style:none;text-align:left;margin-bottom:26px;}
@@ -167,8 +168,8 @@ body{font-family:var(--body);background:var(--white);color:var(--ink);-webkit-fo
 .os-price-was{font-size:13px;color:var(--sage-deep);opacity:.7;text-decoration:line-through;font-family:var(--mono);}
 .os-price-now{font-family:var(--display);font-size:40px;font-weight:700;color:var(--ink);line-height:1;}
 .os-price-now span{font-size:16px;color:var(--sage-deep);font-weight:600;}
-.os-btn{display:block;background:var(--yellow);color:var(--ink);font-size:16px;font-weight:600;font-family:var(--display);padding:18px;border-radius:18px;text-decoration:none;margin-bottom:12px;margin-top:20px;box-shadow:0 4px 0 var(--yellow-deep);transition:transform .12s,box-shadow .12s;}
-.os-btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--yellow-deep);}
+.os-btn{display:block;background:var(--gold);color:var(--ink);font-size:.85rem;font-weight:700;font-family:var(--mono);letter-spacing:.04em;padding:18px;border-radius:16px;text-decoration:none;margin-bottom:12px;margin-top:20px;box-shadow:0 5px 0 var(--gold-hover);transition:transform .12s,box-shadow .12s;text-align:center;}
+.os-btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--gold-hover);}
 .os-fine{font-size:12px;color:var(--sage-deep);opacity:.8;text-decoration:none;display:block;font-family:var(--mono);}
 
 /* compare */
@@ -229,6 +230,29 @@ footer a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
   </div>
 </div>
 
+<!-- ═══════════ SCREEN 1.5: EMAIL GATE ═══════════ -->
+<div id="screen-gate" class="screen">
+  <div class="intake">
+    <div class="intake-eyebrow">Your guide is ready</div>
+    <h1>Enter your email to open everything.</h1>
+    <p class="intake-sub" id="gate-sub">All device guides, free. We'll email you when the tool updates for the under-16 ban.</p>
+
+    <div class="q-step">
+      <div class="q-label">Your email</div>
+      <input type="email" id="gateEmail" class="q-input" placeholder="you@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')submitGate()">
+    </div>
+
+    <button class="intake-btn" id="gateContinue" onclick="submitGate()">Open the full library &rarr;</button>
+
+    <div class="gate-ban-note">
+      <div class="note-eyebrow">Update coming Spring 2027</div>
+      <p>The UK under-16 social media ban goes live Spring 2027. This guide will update when the platform list is confirmed. We'll email you the moment it does.</p>
+    </div>
+
+    <p class="intake-skip" style="cursor:default;margin-top:16px">No spam. Unsubscribe any time.</p>
+  </div>
+</div>
+
 <!-- ═══════════ SCREEN 2: DASHBOARD ═══════════ -->
 <div id="screen-dash" class="screen">
 
@@ -251,6 +275,13 @@ footer a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
     </div>
   </div>
 
+  <div style="max-width:520px;margin:16px auto 0;padding:0 20px">
+    <div style="background:var(--coral-lt);border-radius:14px;padding:14px 18px;border-left:3px solid var(--coral)">
+      <div style="font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);margin-bottom:4px">Update coming Spring 2027</div>
+      <p style="font-size:.82rem;color:var(--ink-soft);line-height:1.65;margin:0">UK under-16 social media ban confirmed. Instagram, TikTok, Snapchat and YouTube guides will be updated when regulations are finalised.</p>
+    </div>
+  </div>
+
   <div class="search-wrap">
     <div class="search-box">
       <span class="search-icon">⌕</span>
@@ -270,7 +301,7 @@ footer a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
       <div class="os-hero">
         <div class="os-tag">The Digital Pathway OS</div>
         <h2>Setup is step one.<br>The <em>pathway</em> is the whole journey.</h2>
-        <p id="osPitch">Device controls protect today. The Pathway OS guides every stage from 4 to 16 — the parenting equivalent of Good Inside, built for the digital world.</p>
+        <p id="osPitch">Device controls protect today. The Pathway OS guides every stage from 4 to 16 — the scripts, the conversations, and the whole journey from first screen to full access.</p>
         <ul class="os-feats">
           <li>A complete pathway for every stage — first screen at 4 to full access at 16</li>
           <li>DiGi — your AI advisor, trained on the research, available at 11pm when it kicks off</li>
@@ -663,9 +694,7 @@ function checkContinue(){
   document.getElementById('intakeContinue').disabled = !(state.age);
 }
 document.getElementById('intakeContinue').onclick = ()=>{
-  state.stage = ageToStage(state.age);
-  buildDashboard();
-  switchScreen('dash');
+  switchScreen('gate');
 };
 function skipIntake(){
   state.age=null; state.stage=null; state.name="";
@@ -676,6 +705,43 @@ function switchScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
   document.getElementById('screen-'+id).classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ════════════ GATE ════════════ */
+async function submitGate(){
+  const email = document.getElementById('gateEmail').value.trim();
+  if(!email || !email.includes('@')){ toast('Please enter a valid email'); return; }
+  const btn = document.getElementById('gateContinue');
+  btn.textContent = 'Opening…';
+  btn.disabled = true;
+  try {
+    const res = await fetch('https://formspree.io/f/mvzjozyy', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        email,
+        child_name: state.name||'',
+        child_age: state.age||'',
+        _subject:'GC Device Tool — '+(state.name||'visitor')+' age '+(state.age||'?')
+      })
+    });
+    const data = await res.json();
+    if(data.ok || res.ok){
+      state.unlocked = true;
+      state.stage = ageToStage(state.age);
+      buildDashboard();
+      switchScreen('dash');
+    } else {
+      toast('Something went wrong — please try again');
+      btn.textContent = 'Open the full library →';
+      btn.disabled = false;
+    }
+  } catch(e){
+    state.unlocked = true;
+    state.stage = ageToStage(state.age);
+    buildDashboard();
+    switchScreen('dash');
+  }
 }
 
 /* ════════════ DASHBOARD ════════════ */
@@ -692,7 +758,7 @@ function buildDashboard(skipped=false){
     // personalise OS pitch
     const nm = state.name ? escapeHtml(state.name) : "your child";
     document.getElementById('osPitch').innerHTML =
-      `${nm} is at Stage ${state.stage}. The Pathway OS shows you exactly what comes next — and walks beside you all the way to Stage 5 at 16. The parenting equivalent of Good Inside, built for the digital world.`;
+      `${nm} is at Stage ${state.stage}. The Pathway OS shows you exactly what comes next and walks beside you all the way to Stage 5 at 16.`;
   } else {
     document.querySelector('.stage-banner').style.display='none';
   }
@@ -754,9 +820,8 @@ function renderDevices(){
   count.textContent = `${list.length} device${list.length>1?'s':''}${activeCat!=='All'?' in '+activeCat:''}`;
 
   list.forEach((d,idx)=>{
-    // FREE PREVIEW: first card always open-able free. Rest locked until unlocked.
-    const isFree = (idx===0);
-    const locked = !state.unlocked && !isFree;
+    const isFree = true;
+    const locked = false;
 
     const card=document.createElement('div');
     card.className='device-card'+(locked?' locked':'');
@@ -778,7 +843,7 @@ function renderDevices(){
           <div class="dc-sub">${d.sub}</div>
         </div>
         <div class="dc-right">
-          ${locked?'<span class="dc-lock">🔒</span>':''}
+          ${''}
           <div class="dc-toggle"><svg width="13" height="8" viewBox="0 0 13 8" fill="none"><path d="M1 1l5.5 5.5L12 1" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         </div>
       </div>
@@ -801,7 +866,6 @@ function renderDevices(){
     `;
 
     card.querySelector('.dc-head').onclick = ()=>{
-      if(locked){ showLock(); return; }
       const open = card.classList.contains('open');
       document.querySelectorAll('.device-card').forEach(c=>c.classList.remove('open'));
       if(!open) card.classList.add('open');
@@ -809,57 +873,9 @@ function renderDevices(){
 
     wrap.appendChild(card);
 
-    // After the free card, inject the lock gate (once) if not unlocked
-    if(isFree && !state.unlocked){
-      wrap.appendChild(buildLockGate());
-    }
   });
 }
 
-function buildLockGate(){
-  const div=document.createElement('div');
-  div.className='lock-card';
-  div.id='lockGate';
-  div.innerHTML=`
-    <div class="lock-inner">
-      <div class="lock-count">⬡ 131 parents have unlocked the full library</div>
-      <div class="lock-icon">🔓</div>
-      <div class="lock-title">Unlock every device guide</div>
-      <div class="lock-desc">Enter your email to open all ${DEVICES.length} step-by-step guides — free. You'll also get the weekly pathway newsletter.</div>
-      <div class="lock-form">
-        <input type="email" id="lockEmail" class="lock-input" placeholder="you@email.com" autocomplete="email">
-        <button class="lock-btn" onclick="submitEmail()">Unlock the full library →</button>
-      </div>
-      <p class="lock-fine">Free forever. Unsubscribe any time. The first 50 subscribers get the founder rate on the full Digital Pathway OS — £7.99/month for life.</p>
-    </div>`;
-  return div;
-}
-
-function submitEmail(){
-  const email = document.getElementById('lockEmail').value.trim();
-  if(!email || !email.includes('@')){
-    toast('Please enter a valid email');
-    return;
-  }
-  // Unlock locally so it's open if they come back, then send them to the founder signup
-  state.unlocked = true;
-  toast('Taking you to confirm your access…');
-  setTimeout(()=>{
-    window.location.href = 'https://mailchi.mp/thesocialbillboard/founder?email=' + encodeURIComponent(email);
-  }, 700);
-}
-
-function showLock(){
-  const gate=document.getElementById('lockGate');
-  if(gate){
-    gate.scrollIntoView({behavior:'smooth',block:'center'});
-    gate.style.transition='transform .15s';
-    gate.style.transform='scale(1.02)';
-    setTimeout(()=>gate.style.transform='scale(1)',180);
-    const inp=document.getElementById('lockEmail');
-    if(inp) setTimeout(()=>inp.focus(),400);
-  }
-}
 
 function filterDevices(){
   const q=document.getElementById('searchInput').value;
